@@ -1,7 +1,7 @@
 from flask import Blueprint, jsonify, request
 
 
-# 创建 Blueprint 实例
+# Blueprint instance
 customers_blueprint = Blueprint('customers', __name__)
 
 # 建立数据库连接(connect to MySQL server)
@@ -14,7 +14,7 @@ def db_connection():
         database=''
     )
 
-# GET /customers 获取所有用户
+# get all customers: GET /customers 
 @customers_blueprint.route('/customers', methods = ['GET'])
 def get_all_customers():
     connection = db_connection()
@@ -26,7 +26,7 @@ def get_all_customers():
     connection.close()
     return jsonify(results)
 
-# GET /customers/search?name=xxx&email=xxx 搜索用户
+# search for customer: GET /customers/search?name=xxx&email=xxx 
 @customers_blueprint.route('/customers/search', methods = ['GET'])
 def search_customers():
     name = request.args.get('name')
@@ -41,7 +41,7 @@ def search_customers():
     connection.close()
     return jsonify(results)
 
-# POST /customers 添加新用户
+# add a new customer: POST /customers 
 @customers_blueprint.route('/customers', methods = ['POST'])
 def add_customer():
     data = request.get_json()
@@ -56,7 +56,7 @@ def add_customer():
     connection.close()
     return jsonify({'message': 'Customer added successfully'}), 201
 
-# DELETE /customers/<id> → 删除用户
+# delete a customer: DELETE /customers/<id> → 
 @customers_bp.route('/customers/<int:user_id>', methods = ['DELETE'])
 def delete_customer(user_id):
     connection = get_db_connection()
@@ -68,7 +68,7 @@ def delete_customer(user_id):
     connection.close()
     return jsonify({'message': f'Customer {user_id} deleted'}), 200
 
-# PUT /customers/<id> → 更新用户信息（自定义字段）
+# update customer fields: PUT /customers/<id> →
 @customers_bp.route('/customers/<int:user_id>', methods = ['PUT'])
 def update_customer(user_id):
     data = request.get_json()
