@@ -41,48 +41,43 @@ def search_customers():
     connection.close()
     return jsonify(results)
 
-
-
-
-############## 从这里开始
-
-
-
-
-
 # POST /customers 添加新用户
 @customers_blueprint.route('/customers', methods = ['POST'])
 def add_customer():
     data = request.get_json()
     connection = get_db_connection()
     cursor = connection.cursor()
+
     SQLquery = "INSERT INTO Customers (firstname, lastname, email, address) VALUES (%s, %s, %s, %s)"
     cursor.execute(SQLquery, (data['firstname'], data['lastname'], data['email'], data['address']))
     connection.commit()
+
     cursor.close()
     connection.close()
     return jsonify({'message': 'Customer added successfully'}), 201
 
 # DELETE /customers/<id> → 删除用户
-@customers_bp.route('/customers/<int:user_id>', methods=['DELETE'])
+@customers_bp.route('/customers/<int:user_id>', methods = ['DELETE'])
 def delete_customer(user_id):
-    conn = get_db_connection()
-    cursor = conn.cursor()
+    connection = get_db_connection()
+    cursor = connection.cursor()
     cursor.execute("DELETE FROM Customers WHERE user_id = %s", (user_id,))
-    conn.commit()
+    connection.commit()
+
     cursor.close()
-    conn.close()
+    connection.close()
     return jsonify({'message': f'Customer {user_id} deleted'}), 200
 
 # PUT /customers/<id> → 更新用户信息（自定义字段）
-@customers_bp.route('/customers/<int:user_id>', methods=['PUT'])
+@customers_bp.route('/customers/<int:user_id>', methods = ['PUT'])
 def update_customer(user_id):
     data = request.get_json()
-    conn = get_db_connection()
-    cursor = conn.cursor()
-    query = "UPDATE Customers SET firstname=%s, lastname=%s, email=%s, address=%s WHERE user_id=%s"
+    connection = get_db_connection()
+    cursor = connection.cursor()
+    query = "UPDATE Customers SET firstname = %s, lastname = %s, email = %s, address = %s WHERE user_id = %s"
     cursor.execute(query, (data['firstname'], data['lastname'], data['email'], data['address'], user_id))
-    conn.commit()
+    connection.commit()
+    
     cursor.close()
-    conn.close()
+    connection.close()
     return jsonify({'message': f'Customer {user_id} updated'}), 200
