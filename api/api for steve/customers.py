@@ -33,8 +33,8 @@ def search_customers():
     email = request.args.get('email')
     connection = get_db_connection()
     cursor = connection.cursor(dictionary = True)
-    SQLuery = "SELECT * FROM Customers WHERE firstname LIKE %s OR email LIKE %s"
-    cursor.execute(SQLuery, (f"%{name}%", f"%{email}%"))
+    cursor.execute("SELECT * FROM Customers WHERE firstname LIKE %s OR email LIKE %s",
+                   (f"%{name}%", f"%{email}%"))
     results = cursor.fetchall()
 
     cursor.close()
@@ -48,8 +48,8 @@ def add_customer():
     connection = get_db_connection()
     cursor = connection.cursor()
 
-    SQLquery = "INSERT INTO Customers (firstname, lastname, email, address) VALUES (%s, %s, %s, %s)"
-    cursor.execute(SQLquery, (data['firstname'], data['lastname'], data['email'], data['address']))
+    cursor.execute("INSERT INTO Customers (firstname, lastname, email, address) VALUES (%s, %s, %s, %s)",
+                   (data['firstname'], data['lastname'], data['email'], data['address']))
     connection.commit()
 
     cursor.close()
@@ -74,8 +74,8 @@ def update_customer(user_id):
     data = request.get_json()
     connection = get_db_connection()
     cursor = connection.cursor()
-    query = "UPDATE Customers SET firstname = %s, lastname = %s, email = %s, address = %s WHERE user_id = %s"
-    cursor.execute(query, (data['firstname'], data['lastname'], data['email'], data['address'], user_id))
+    cursor.execute("UPDATE Customers SET firstname = %s, lastname = %s, email = %s, address = %s WHERE user_id = %s",
+                   (data['firstname'], data['lastname'], data['email'], data['address'], user_id))
     connection.commit()
     
     cursor.close()
