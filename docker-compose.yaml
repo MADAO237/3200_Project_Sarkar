@@ -1,3 +1,5 @@
+version: "3.8"
+
 services:
   app:
     build: ./app
@@ -14,6 +16,12 @@ services:
     volumes: ["./api:/apicode"]
     ports:
       - 4000:4000
+    env_file:
+      - ./api/.env
+    depends_on:
+      - db
+    networks:
+      - internal
 
   db:
     env_file:
@@ -25,3 +33,10 @@ services:
       - ./database-files:/docker-entrypoint-initdb.d/:ro
     ports:
       - 3200:3306
+    networks:
+      - internal
+
+networks:
+  internal:
+    driver: bridge
+
