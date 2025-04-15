@@ -4,7 +4,7 @@ USE laundry_db;
 
 -- Customers Table
 CREATE TABLE IF NOT EXISTS Customers (
-    user_id   INT PRIMARY KEY,
+    user_id   INT AUTO_INCREMENT PRIMARY KEY,
     firstName VARCHAR(100),
     lastName  VARCHAR(100),
     email     VARCHAR(100),
@@ -13,7 +13,7 @@ CREATE TABLE IF NOT EXISTS Customers (
 
 -- Laundromat Table
 CREATE TABLE IF NOT EXISTS laundromats (
-    laundromat_id INT PRIMARY KEY,
+    laundromat_id INT AUTO_INCREMENT PRIMARY KEY,
     location      VARCHAR(100),
     pricing       INT,
     avg_rating    INT,
@@ -25,8 +25,8 @@ CREATE TABLE IF NOT EXISTS laundromats (
 
 
 -- Orders Table
-CREATE TABLE IF NOT EXISTS Orders (
-    order_id          INT PRIMARY KEY,
+CREATE TABLE IF NOT EXISTS orders (
+    order_id          INT AUTO_INCREMENT PRIMARY KEY,
     user_id           INT,
     laundromat_id     INT,
     pickup_location   VARCHAR(100),
@@ -42,17 +42,17 @@ CREATE TABLE IF NOT EXISTS Orders (
 
 -- Order Details Table
 CREATE TABLE IF NOT EXISTS OrderDetails (
-    detail_id     INT PRIMARY KEY,
+    detail_id     INT AUTO_INCREMENT PRIMARY KEY,
     order_id      INT,
     order_date    DATETIME,
     delivery_date DATETIME,
     location      VARCHAR(100),
-    FOREIGN KEY (order_id) REFERENCES Orders(order_id) ON DELETE CASCADE
+    FOREIGN KEY (order_id) REFERENCES orders(order_id) ON DELETE CASCADE
 );
 
 -- Customer Reviews Table
 CREATE TABLE IF NOT EXISTS CustomerReviews (
-    review_id     INT PRIMARY KEY,
+    review_id     INT AUTO_INCREMENT PRIMARY KEY,
     user_id       INT,
     laundromat_id INT,
     rating        INT,
@@ -65,7 +65,7 @@ CREATE TABLE IF NOT EXISTS CustomerReviews (
 
 -- Logs Table
 CREATE TABLE IF NOT EXISTS Logs (
-    logs_id     INT PRIMARY KEY,
+    logs_id     INT AUTO_INCREMENT PRIMARY KEY,
     event_type  VARCHAR(100),
     description TEXT,
     timestamp   DATETIME,
@@ -75,7 +75,7 @@ CREATE TABLE IF NOT EXISTS Logs (
 
 -- Locations Table
 CREATE TABLE IF NOT EXISTS Locations (
-    location_id INT PRIMARY KEY,
+    location_id INT AUTO_INCREMENT PRIMARY KEY,
     user_id     INT,
     address     VARCHAR(100),
     label       VARCHAR(100),

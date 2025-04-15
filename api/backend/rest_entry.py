@@ -1,7 +1,7 @@
 from flask import Flask
-
 from backend.db_connection import db
 from backend.laundromat.laundromat_routes import laundromat
+from backend.orders.orders_routes import orders
 
 import os
 from dotenv import load_dotenv
@@ -38,6 +38,8 @@ def create_app():
     # Register the routes from each Blueprint with the app object
     # and give a url prefix to each
     app.register_blueprint(laundromat, url_prefix='/l')
+    app.register_blueprint(orders, url_prefix='/orders')
+
 
 
     # Don't forget to return the app object
