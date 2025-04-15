@@ -1,5 +1,5 @@
 from flask import Blueprint, jsonify, make_response, current_app
-from backend.db_connection.db import db_connection
+from backend.db_connection import db_connection
 
 analytics_blueprint = Blueprint('analytics', __name__)
 
