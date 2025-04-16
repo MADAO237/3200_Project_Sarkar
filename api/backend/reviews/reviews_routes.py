@@ -4,7 +4,7 @@ from backend.db_connection import db_connection
 reviews_blueprint = Blueprint('reviews', __name__)
 
 # return the rating
-@reviews_blueprint.route('/reviews/summary', methods = ['GET'])
+@reviews_blueprint.route('/reviews/summary/', methods = ['GET'])
 def get_review_summary():
     connection = db_connection()
     cursor = connection.cursor(dictionary = True)
