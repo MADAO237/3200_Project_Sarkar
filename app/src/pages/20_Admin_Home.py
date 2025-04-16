@@ -11,7 +11,12 @@ SideBarLinks()
 
 st.title('System Admin Home Page')
 
-if st.button('Update ML Models', 
+if st.button('Add New User', 
+             type='primary',
+             use_container_width=True):
+  st.switch_page('pages/21_ML_Model_Mgmt.py')
+
+if st.button('Remove User', 
              type='primary',
              use_container_width=True):
   st.switch_page('pages/21_ML_Model_Mgmt.py')
