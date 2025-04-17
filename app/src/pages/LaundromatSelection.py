@@ -1,21 +1,39 @@
 import streamlit as st
+import requests
 
 st.title("Select a Laundromat")
 
-# Service Options
+# 🧺 Service Options (at the top)
 st.subheader("Select Option(s)")
-services = st.multiselect("Choose services:", ["Washing + Drying", "Pressing", "Ironing"])
+services = st.multiselect(
+    "Choose services:",
+    ["Washing + Drying", "Pressing", "Ironing"]
+)
 
-# Laundromat Info with placeholder labels/data
-laundromats = {
-    "Lawrence Laundry": ("2 hrs 30 mins", "$25.14 + $5.00 delivery"),
-    "Wrinkle Relief": ("1 hr 15 mins", "$34.67 + $6.25 delivery"),
-    "Suds and Duds": ("40 mins", "$29.99 + $10 delivery")
-}
+# 📡 Fetch laundromats from backend
+try:
+    response = requests.get("http://localhost:4000/l/laundromat?...")
+    laundromats = response.json()
+except Exception as e:
+    st.error(f"Could not connect to backend. {e}")
+    laundromats = []
 
-st.subheader("Laundromat Options")
-for name, (time, price) in laundromats.items():
-    col1, col2, col3 = st.columns(3)
-    col1.write(f"**{name}**")
-    col2.write(time)
-    col3.write(price)
+# ✅ Show laundromats if fetched
+if laundromats:
+    st.subheader("Laundromat Options")
+    for laundromat in laundromats:
+        name = laundromat["location"]
+        time = laundromat.get("time_process", "N/A")
+        price = f"${laundromat['pricing']} + ${laundromat['delivery_fee']} delivery"
+
+        col1, col2, col3 = st.columns([3, 2, 2])
+        with col1:
+            st.write(f"**{name}**")
+        with col2:
+            st.write(time)
+        with col3:
+            st.write(price)
+
+        st.button(f"Select {name}", key=f"select_{laundromat['laundromat_id']}")
+else:
+    st.info("No laundromats found.")

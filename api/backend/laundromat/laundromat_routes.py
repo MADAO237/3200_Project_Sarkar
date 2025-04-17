@@ -9,7 +9,7 @@ def get_sorted_laundromats():
     sort_order = request.args.get('sort', 'asc')
     limit = int(request.args.get('limit', 1))
     
-    if attribute not in ['pricing', 'avgtime']:
+    if attribute not in ['pricing', 'avgtime', 'time_process']:
         return jsonify({'error': 'Invalid attribute'}), 400
  
     sort_order = sort_order.lower()

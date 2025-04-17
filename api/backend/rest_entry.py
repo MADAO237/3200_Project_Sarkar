@@ -44,6 +44,11 @@ def create_app():
     # and give a url prefix to each
     app.register_blueprint(laundromat, url_prefix='/l')
     app.register_blueprint(orders, url_prefix='/orders')
+    
+    @app.route('/test', methods=['GET'])
+    def test():
+        return "API is running!"
+
 
     # 000000 test for analysis by MQ
     app.register_blueprint(analytics_blueprint, url_prefix='/analytics')

@@ -19,7 +19,8 @@ CREATE TABLE IF NOT EXISTS laundromats (
     avg_rating    INT,
     delivery_fee  INT,
     coupon_rev    VARCHAR(7),
-    num_orders    INT
+    num_orders    INT,
+    time_process  INT 
 );
 
 

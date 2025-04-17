@@ -7,7 +7,7 @@ streamlit.set_page_config(page_title = "Analysis Revenue KPI")
 
 streamlit.title("Revenue Dashboard (KPI)")
 
-response = requests.get("http://localhost:4000/analytics/revenue-per-day")
+response = requests.get("http://localhost:4000/logs")
 if response.status_code == 200:
     data = response.json()
     data_frame = panda.DataFrame(data)
