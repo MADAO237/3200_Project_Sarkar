@@ -1,3 +1,6 @@
+youtube presentation link: https://www.youtube.com/watch?v=KyVaEdELXvc
+
+
 # Spring 2025 CS 3200 Project Template Repository
 
 This repo is a template for your semester project. It includes most of the infrastructure setup (containers), sample databases, and example UI pages. Explore it fully and ask questions!
