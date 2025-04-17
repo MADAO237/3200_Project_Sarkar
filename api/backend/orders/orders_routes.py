@@ -122,5 +122,23 @@ def get_order_status(order_id):
         cursor.close()
         conn.close()
 
+@orders.route('/orders/<order_id>/<pickup_location>', methods=['PUT'])
+def update_pickup_location(order_id):
+    data = request.get_json()
+    conn = db.connect()
+    cursor = conn.cursor()
+    try:
+        query = """
+        UPDATE orders
+        SET pickup_location = %s
+        WHERE order_id = %s
+        """
+        cursor.execute(query, (data['total_cost'], order_id))
+        conn.commit()
+        return jsonify({'message': 'Pickup Location updated'})
+    finally:
+        cursor.close()
+        conn.close()
+
 
 
