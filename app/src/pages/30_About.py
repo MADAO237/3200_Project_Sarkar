@@ -4,14 +4,11 @@ from modules.nav import SideBarLinks
 
 SideBarLinks()
 
-st.write("# About this App")
+st.write("# About Suds N' Duds ")
 
 st.markdown (
     """
-    This is a demo app for CS 3200 Course Project.  
-
-    The goal of this demo is to provide information on the tech stack 
-    being used as well as demo some of the features of the various platforms. 
+    Suds N' Duds is a smart, data-driven laundry delivery service—like UberEats, but for your laundry. Our easy-to-use app connects customers with local drivers who take care of the entire process. From picking up your laundry at your doorstep to getting it cleaned at a trusted local laundromat and delivering it back fresh and folded, Suds N' Duds handles the dirty work so you don’t have to. 
 
     Stay tuned for more information and features to come!
     """
